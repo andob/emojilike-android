@@ -112,21 +112,21 @@ With this class you can personalize the EmojiLikeView, the in and out animation,
 EmojiConfig.with(this)
 	.on(likeButton)
 	.open(emojiView)
-        .addEmoji(new Emoji(R.drawable.like, "Like"))
-        .addEmoji(new Emoji(R.drawable.haha, "Haha"))
-        .addEmoji(new Emoji(R.drawable.kiss, "Kiss"))
-        .addEmoji(new Emoji(R.drawable.sad, "Sad"))
-        .addEmoji(new Emoji(R.drawable.t, ":P"))
-        .setEmojiViewInAnimation((AnimationSet)AnimationUtils.loadAnimation(this, R.anim.in_animation))
-        .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.out_animation))
-        .setBackgroundImage(R.drawable.background_drawable)
-        .setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
-            @Override
-            public void onEmojiSelected(Emoji emoji) {
-                Toast.makeText(getContext(), "Selected " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
-            }
-        })
-        .setup();
+	.addEmoji(new Emoji(R.drawable.like, "Like"))
+	.addEmoji(new Emoji(R.drawable.haha, "Haha"))
+	.addEmoji(new Emoji(R.drawable.kiss, "Kiss"))
+	.addEmoji(new Emoji(R.drawable.sad, "Sad"))
+	.addEmoji(new Emoji(R.drawable.t, ":P"))
+	.setEmojiViewInAnimation((AnimationSet)AnimationUtils.loadAnimation(this, R.anim.in_animation))
+	.setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.out_animation))
+	.setBackgroundImage(R.drawable.background_drawable)
+	.setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
+		@Override
+		public void onEmojiSelected(Emoji emoji) {
+			Toast.makeText(getContext(), "Selected " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
+		}
+	})
+	.setup();
 ```
 
 For more info look at the sample project.
