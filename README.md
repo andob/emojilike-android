@@ -121,7 +121,7 @@ EmojiConfig.with(this)
         .addEmoji(new Emoji(R.drawable.t, ":P"));
         .setEmojiViewInAnimation((AnimationSet)AnimationUtils.loadAnimation(this, R.anim.in_animation));
         .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.out_animation));
-        .setBackgroundImage(R.drawable.background_drawable);
+        .setBackgroundImage(R.drawable.background_drawable)
         .setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
             @Override
             public void onEmojiSelected(Emoji emoji) {
