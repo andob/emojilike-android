@@ -2,6 +2,8 @@
 
 ## Facebook-like "Like with Emoji" library for Android
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-emojilike--android-green.svg?style=true)](https://android-arsenal.com/details/1/3839)
+
 ![](https://github.com/andob/emojilike-android/raw/master/emojilike.gif)  
 
 Just like Facebook's app:
