@@ -21,7 +21,7 @@ allprojects {
 		maven { url "https://jitpack.io" }
 		...
 dependencies {
-	compile 'com.github.andob:emojilike-android:beta'
+	compile 'com.github.andob:emojilike-android:beta2'
 ...
 ```
 
@@ -84,7 +84,8 @@ You just need to define the "trigger" view (=the like button, the button that, o
 <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Like" ....../>
+        android:text="Like"
+        android:id="@+id/likeButton" ....../>
 ```
 
 And the view with emojis:
@@ -110,28 +111,26 @@ In the end, use setup method to setup the EmojiLikeView with your configuration.
 
 ```java
 //in onCreate/onCreateView/onBindViewHolder/etc
-EmojiConfig config=EmojiConfig.with(this)
-                .on(likeButton)
-                .addEmoji(new Emoji(R.drawable.like, "Like"))
-                .addEmoji(new Emoji(R.drawable.haha, "Haha"))
-                .addEmoji(new Emoji(R.drawable.kiss, "Kiss"))
-                .addEmoji(new Emoji(R.drawable.sad, "Sad"))
-                .addEmoji(new Emoji(R.drawable.t, ":P"));
-
-        config.setEmojiViewInAnimation((AnimationSet)AnimationUtils.loadAnimation(this, R.anim.in_animation));
-        config.setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.out_animation));
-        config.setBackgroundImage(R.drawable.background_drawable);
-        
-        config.setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
+EmojiConfig.with(this)
+	.on(likeButton)
+	.open(emojiView)
+        .addEmoji(new Emoji(R.drawable.like, "Like"))
+        .addEmoji(new Emoji(R.drawable.haha, "Haha"))
+        .addEmoji(new Emoji(R.drawable.kiss, "Kiss"))
+        .addEmoji(new Emoji(R.drawable.sad, "Sad"))
+        .addEmoji(new Emoji(R.drawable.t, ":P"));
+        .setEmojiViewInAnimation((AnimationSet)AnimationUtils.loadAnimation(this, R.anim.in_animation));
+        .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.out_animation));
+        .setBackgroundImage(R.drawable.background_drawable);
+        .setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
             @Override
             public void onEmojiSelected(Emoji emoji) {
                 Toast.makeText(getContext(), 
                 	"Selected center " + emoji.getDescription(), 
                 	Toast.LENGTH_SHORT).show();
             }
-        });
-        
-        config.setup(emojiView);
+        })
+        .setup();
 ```
 
 For more info look at the sample project.
