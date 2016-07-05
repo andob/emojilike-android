@@ -118,16 +118,14 @@ EmojiConfig.with(this)
         .addEmoji(new Emoji(R.drawable.haha, "Haha"))
         .addEmoji(new Emoji(R.drawable.kiss, "Kiss"))
         .addEmoji(new Emoji(R.drawable.sad, "Sad"))
-        .addEmoji(new Emoji(R.drawable.t, ":P"));
-        .setEmojiViewInAnimation((AnimationSet)AnimationUtils.loadAnimation(this, R.anim.in_animation));
-        .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.out_animation));
+        .addEmoji(new Emoji(R.drawable.t, ":P"))
+        .setEmojiViewInAnimation((AnimationSet)AnimationUtils.loadAnimation(this, R.anim.in_animation))
+        .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.out_animation))
         .setBackgroundImage(R.drawable.background_drawable)
         .setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
             @Override
             public void onEmojiSelected(Emoji emoji) {
-                Toast.makeText(getContext(), 
-                	"Selected center " + emoji.getDescription(), 
-                	Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Selected " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
             }
         })
         .setup();
