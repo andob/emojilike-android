@@ -103,11 +103,9 @@ Then get them in your activity/fragment/list cell/etc.
 
 #### Step 4. Configure the emojis
 
-When the activity/fragment/list cell is created, use EmojiConfig class to configure how emojis will behave. Pass a reference to the context to "with" metod (the context will need to implement IActivityWithEmoji or extend ActivityWithEmoji as described above), the "trigger" view to "on" method and then use addEmoji to add emoji objects (with picture and description).
+When the activity/fragment/list cell is created, use EmojiConfig class to configure how emojis will behave. Pass a reference to the context to "with" metod (the context will need to implement IActivityWithEmoji or extend ActivityWithEmoji as described above), the "trigger" view to "on" method, and the EmojiLikeView to "open" method. Then, use addEmoji to add emoji objects (with picture and description).
 
 With this class you can personalize the EmojiLikeView, the in and out animation, background image, margins, delays. There is no default background image (the image behind emojis) or in/out animations, so you will probably need to set them as below.
-
-In the end, use setup method to setup the EmojiLikeView with your configuration.
 
 ```java
 //in onCreate/onCreateView/onBindViewHolder/etc
