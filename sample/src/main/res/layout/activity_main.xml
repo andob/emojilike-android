@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="ro.andreidobrescu.sample.MainActivity">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/like"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/likeButton"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Like"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/likeButton"
+        android:layout_alignTop="@+id/likeButton"
+        android:layout_marginTop="5dp"/>
+
+    <ro.andreidobrescu.emojilike.EmojiLikeView
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:id="@+id/emojiView"
+        android:layout_alignBottom="@+id/likeButton"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fragment demo"
+        android:textAllCaps="false"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/fragmentDemo"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RecyclerView Demo"
+        android:textAllCaps="false"
+        android:layout_below="@+id/fragmentDemo"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/recyclerDemo"/>
+
+
+</RelativeLayout>
