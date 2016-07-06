@@ -1,7 +1,9 @@
 package ro.andreidobrescu.sample.fragments;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,48 +44,52 @@ public class FragmentSample extends Fragment
 
         ButterKnife.bind(this, view);
 
-        EmojiConfig config=EmojiConfig.with(getContext())
+        EmojiConfig.with(getContext())
                 .on(likeButton)
+                .open(emojiView)
                 .addEmoji(new Emoji(R.drawable.like, "Like"))
                 .addEmoji(new Emoji(R.drawable.haha, "Haha"))
                 .addEmoji(new Emoji(R.drawable.kiss, "Kiss"))
                 .addEmoji(new Emoji(R.drawable.sad, "Sad"))
-                .addEmoji(new Emoji(R.drawable.t, ":P"));
+                .addEmoji(new Emoji(R.drawable.t, ":P"))
+                .setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
+                    @Override
+                    public void onEmojiSelected(Emoji emoji) {
+                        Toast.makeText(getContext(), "Selected center " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setEmojiViewInAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.in_animation))
+                .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.out_animation))
+                .setBackgroundImage(R.drawable.background_drawable)
+                .setup();
 
-        config.setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
-            @Override
-            public void onEmojiSelected(Emoji emoji) {
-                Toast.makeText(getContext(), "Selected center " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        config.setEmojiViewInAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.in_animation));
-        config.setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.out_animation));
-        config.setBackgroundImage(R.drawable.background_drawable);
-        config.setInitialSelectedEmoji(4);
-        config.setup(emojiView);
-
-        EmojiConfig config2=EmojiConfig.with(getContext())
+        EmojiConfig.with(getContext())
                 .on(likeButton2)
+                .open(emojiView2)
                 .addEmoji(new Emoji(R.drawable.like, "Like"))
                 .addEmoji(new Emoji(R.drawable.haha, "Haha"))
                 .addEmoji(new Emoji(R.drawable.sad, "Sad"))
                 .addEmoji(new Emoji(R.drawable.sad, "Sad"))
                 .addEmoji(new Emoji(R.drawable.sad, "Sad"))
-                .addEmoji(new Emoji(R.drawable.t, ":P"));
-
-        config2.setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
-            @Override
-            public void onEmojiSelected(Emoji emoji) {
-                Toast.makeText(getContext(), "Selected bottom " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        config2.setEmojiViewInAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.in_animation));
-        config2.setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.out_animation));
-        config2.setBackgroundImage(R.drawable.background_drawable);
-        config2.setup(emojiView2);
+                .addEmoji(new Emoji(R.drawable.t, ":P"))
+                .setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
+                    @Override
+                    public void onEmojiSelected(Emoji emoji) {
+                        Toast.makeText(getContext(), "Selected bottom " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setEmojiViewInAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.in_animation))
+                .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.out_animation))
+                .setBackgroundImage(R.drawable.background_drawable)
+                .setup();
 
         return view;
+    }
+
+    private int dpToPx(int i)
+    {
+        Resources r = getContext ().getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, i, r.getDisplayMetrics());
+        return (int)px;
     }
 }

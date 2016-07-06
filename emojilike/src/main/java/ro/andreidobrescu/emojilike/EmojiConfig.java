@@ -57,8 +57,6 @@ public class EmojiConfig
 
     Animation emojiViewOutAnimation;
 
-    int initialSelectedEmoji;
-
     List <Emoji> emojis;
 
     OnEmojiSelectedListener onEmojiSelectedListener;
@@ -69,13 +67,14 @@ public class EmojiConfig
 
     int backgroundViewMarginBottom;
 
+    float emojiAnimationSpeed;
+
     private EmojiConfig(IActivityWithEmoji target)
     {
         this.target = target;
         touchDownDelay=100;
         touchUpDelay=500;
         backgroundImage =0;
-        initialSelectedEmoji=0;
         selectedEmojiHeight=dpToPx (85);
         selectedEmojiWeight=4;
         unselectedEmojiWeight=1;
@@ -92,6 +91,7 @@ public class EmojiConfig
         emojiImagesContainerHeight=dpToPx(100);
         backgroundViewHeight=dpToPx(50);
         backgroundViewMarginBottom=dpToPx(10);
+        emojiAnimationSpeed=0.4f;
     }
 
     private Context getContext ()
@@ -140,109 +140,136 @@ public class EmojiConfig
         return this;
     }
 
-    public void setOnEmojiSelectedListener (OnEmojiSelectedListener listener)
+    public EmojiConfig setOnEmojiSelectedListener (OnEmojiSelectedListener listener)
     {
         this.onEmojiSelectedListener=listener;
+        return this;
     }
 
     /**
      * set the time delay from the touch down event and the moment the emoji view is showed
      * */
-    public void setTouchDownDelay(int touchDownDelay) {
+    public EmojiConfig setTouchDownDelay(int touchDownDelay) {
         this.touchDownDelay = touchDownDelay;
+        return this;
     }
 
     /**
      * set the time delay between the touch up event and the moment the emoji view is hided
      * */
-    public void setTouchUpDelay(int touchUpDelay) {
+    public EmojiConfig setTouchUpDelay(int touchUpDelay) {
         this.touchUpDelay = touchUpDelay;
+        return this;
     }
 
-    public void setInitialSelectedEmoji(int initialSelectedEmoji) {
-        this.initialSelectedEmoji = initialSelectedEmoji;
-    }
-
-    public void setSelectedEmojiHeight(int selectedEmojiHeight) {
+    public EmojiConfig setSelectedEmojiHeight(int selectedEmojiHeight) {
         this.selectedEmojiHeight = selectedEmojiHeight;
+        return this;
     }
 
-    public void setSelectedEmojiWeight(int selectedEmojiWeight) {
+    public EmojiConfig setSelectedEmojiWeight(int selectedEmojiWeight) {
         this.selectedEmojiWeight = selectedEmojiWeight;
+        return this;
     }
 
-    public void setEmojiViewMarginLeft(int emojiViewMarginLeft) {
+    public EmojiConfig setEmojiViewMarginLeft(int emojiViewMarginLeft) {
         this.emojiViewMarginLeft = emojiViewMarginLeft;
+        return this;
     }
 
-    public void setEmojiViewMarginRight(int emojiViewMarginRight) {
+    public EmojiConfig setEmojiViewMarginRight(int emojiViewMarginRight) {
         this.emojiViewMarginRight = emojiViewMarginRight;
+        return this;
     }
 
-    public void setSelectedEmojiMarginBottom(int selectedEmojiMarginBottom) {
+    public EmojiConfig setSelectedEmojiMarginBottom(int selectedEmojiMarginBottom) {
         this.selectedEmojiMarginBottom = selectedEmojiMarginBottom;
+        return this;
     }
 
-    public void setSelectedEmojiMarginTop(int selectedEmojiMarginTop) {
+    public EmojiConfig setSelectedEmojiMarginTop(int selectedEmojiMarginTop) {
         this.selectedEmojiMarginTop = selectedEmojiMarginTop;
+        return this;
     }
 
-    public void setSelectedEmojiMarginLeft(int selectedEmojiMarginLeft) {
+    public EmojiConfig setSelectedEmojiMarginLeft(int selectedEmojiMarginLeft) {
         this.selectedEmojiMarginLeft = selectedEmojiMarginLeft;
+        return this;
     }
 
-    public void setSelectedEmojiMarginRight(int selectedEmojiMarginRight) {
+    public EmojiConfig setSelectedEmojiMarginRight(int selectedEmojiMarginRight) {
         this.selectedEmojiMarginRight = selectedEmojiMarginRight;
+        return this;
     }
 
-    public void setUnselectedEmojiMarginBottom(int unselectedEmojiMarginBottom) {
+    public EmojiConfig setUnselectedEmojiMarginBottom(int unselectedEmojiMarginBottom) {
         this.unselectedEmojiMarginBottom = unselectedEmojiMarginBottom;
+        return this;
     }
 
-    public void setUnselectedEmojiMarginTop(int unselectedEmojiMarginTop) {
+    public EmojiConfig setUnselectedEmojiMarginTop(int unselectedEmojiMarginTop) {
         this.unselectedEmojiMarginTop = unselectedEmojiMarginTop;
+        return this;
     }
 
-    public void setUnselectedEmojiMarginLeft(int unselectedEmojiMarginLeft) {
+    public EmojiConfig setUnselectedEmojiMarginLeft(int unselectedEmojiMarginLeft) {
         this.unselectedEmojiMarginLeft = unselectedEmojiMarginLeft;
+        return this;
     }
 
-    public void setUnselectedEmojiMarginRight(int unselectedEmojiMarginRight) {
+    public EmojiConfig setUnselectedEmojiMarginRight(int unselectedEmojiMarginRight) {
         this.unselectedEmojiMarginRight = unselectedEmojiMarginRight;
+        return this;
     }
 
-    public void setUnselectedEmojiWeight(int unselectedEmojiWeight) {
+    public EmojiConfig setUnselectedEmojiWeight(int unselectedEmojiWeight) {
         this.unselectedEmojiWeight = unselectedEmojiWeight;
+        return this;
     }
 
-    public void setEmojiImagesContainerHeight(int emojiImagesContainerHeight) {
+    public EmojiConfig setEmojiImagesContainerHeight(int emojiImagesContainerHeight) {
         this.emojiImagesContainerHeight = emojiImagesContainerHeight;
+        return this;
     }
 
-    public void setBackgroundViewHeight(int backgroundViewHeight) {
+    public EmojiConfig setEmojiAnimationSpeed(float emojiAnimationSpeed) {
+        this.emojiAnimationSpeed = emojiAnimationSpeed;
+        return this;
+    }
+
+    public EmojiConfig setBackgroundViewHeight(int backgroundViewHeight) {
         this.backgroundViewHeight = backgroundViewHeight;
+        return this;
     }
 
-    public void setBackgroundImage(int backgroundImage) {
+    public EmojiConfig setBackgroundImage(int backgroundImage) {
         this.backgroundImage = backgroundImage;
+        return this;
     }
 
-    public void setBackgroundViewMarginBottom(int backgroundViewMarginBottom) {
+    public EmojiConfig setBackgroundViewMarginBottom(int backgroundViewMarginBottom) {
         this.backgroundViewMarginBottom = backgroundViewMarginBottom;
+        return this;
     }
 
-    public void setEmojiViewInAnimation(Animation emojiViewInAnimation) {
+    public EmojiConfig setEmojiViewInAnimation(Animation emojiViewInAnimation) {
         this.emojiViewInAnimation = emojiViewInAnimation;
+        return this;
     }
 
-    public void setEmojiViewOutAnimation(Animation emojiViewOutAnimation) {
+    public EmojiConfig setEmojiViewOutAnimation(Animation emojiViewOutAnimation) {
         this.emojiViewOutAnimation = emojiViewOutAnimation;
+        return this;
     }
 
-    public void setup (EmojiLikeView emojiView)
+    public EmojiConfig open (EmojiLikeView emojiView)
     {
         this.emojiView=emojiView;
+        return this;
+    }
 
+    public void setup ()
+    {
         if (target==null)
             throw new EmojiException("Target not set. Set it with EmojiConfig.with(target)");
         else if (triggerView==null)
@@ -251,6 +278,8 @@ public class EmojiConfig
             throw new EmojiException("Emojis not set");
         else if (emojis.size()<=1)
             throw new EmojiException("Please add more emojis");
+        else if (emojiView==null)
+            throw new EmojiException("EmojiLikeView not set. Use open method.");
         else
         {
             target.configureEmojiLike(this);

@@ -52,25 +52,24 @@ public class RecyclerAdapterSample extends RecyclerView.Adapter <RecyclerAdapter
     {
         holder.textView.setText("nice card "+position);
 
-        EmojiConfig config=EmojiConfig.with(getContext())
+        EmojiConfig.with(getContext())
                 .on(holder.likeButton)
+                .open(holder.emojiView)
                 .addEmoji(new Emoji(R.drawable.like, "Like", position))
                 .addEmoji(new Emoji(R.drawable.haha, "Haha", position))
                 .addEmoji(new Emoji(R.drawable.kiss, "Kiss", position))
                 .addEmoji(new Emoji(R.drawable.sad, "Sad", position))
-                .addEmoji(new Emoji(R.drawable.t, ":P", position));
-
-        config.setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
-            @Override
-            public void onEmojiSelected(Emoji emoji) {
-                Toast.makeText(getContext(), emoji.getDescription()+" "+emoji.getTag().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        config.setEmojiViewInAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.in_animation));
-        config.setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.out_animation));
-        config.setBackgroundImage(R.drawable.background_drawable);
-        config.setup(holder.emojiView);
+                .addEmoji(new Emoji(R.drawable.t, ":P", position))
+                .setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
+                    @Override
+                    public void onEmojiSelected(Emoji emoji) {
+                        Toast.makeText(getContext(), emoji.getDescription()+" "+emoji.getTag().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setEmojiViewInAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.in_animation))
+                .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.out_animation))
+                .setBackgroundImage(R.drawable.background_drawable)
+                .setup();
     }
 
     public static class RecyclerHolderSample extends RecyclerView.ViewHolder

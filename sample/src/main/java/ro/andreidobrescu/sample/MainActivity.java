@@ -42,19 +42,19 @@ public class MainActivity extends AppCompatActivity implements OnEmojiSelectedLi
 
         emojiLikeTouchDetector=new EmojiLikeTouchDetector();
 
-        EmojiConfig config=EmojiConfig.with(this)
+        EmojiConfig.with(this)
                 .on(likeButton)
+                .open(emojiView)
                 .addEmoji(new Emoji(R.drawable.like, "Like"))
                 .addEmoji(new Emoji(R.drawable.haha, "Haha"))
                 .addEmoji(new Emoji(R.drawable.kiss, "Kiss"))
                 .addEmoji(new Emoji(R.drawable.sad, "Sad"))
-                .addEmoji(new Emoji(R.drawable.t, ":P"));
-
-        config.setEmojiViewInAnimation((AnimationSet)AnimationUtils.loadAnimation(this, R.anim.in_animation));
-        config.setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.out_animation));
-        config.setBackgroundImage(R.drawable.background_drawable);
-        config.setOnEmojiSelectedListener(this);
-        config.setup(emojiView);
+                .addEmoji(new Emoji(R.drawable.t, ":P"))
+                .setEmojiViewInAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.in_animation))
+                .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.out_animation))
+                .setBackgroundImage(R.drawable.background_drawable)
+                .setOnEmojiSelectedListener(this)
+                .setup();
     }
 
     @Override
