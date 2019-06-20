@@ -1,7 +1,7 @@
 package ro.andreidobrescu.sample.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
 
 import ro.andreidobrescu.emojilike.ActivityWithEmoji;
 import ro.andreidobrescu.sample.R;
