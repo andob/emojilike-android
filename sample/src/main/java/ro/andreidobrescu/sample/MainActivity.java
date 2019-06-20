@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -13,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ro.andreidobrescu.emojilike.Emoji;
+import ro.andreidobrescu.emojilike.EmojiCellView;
 import ro.andreidobrescu.emojilike.EmojiConfig;
 import ro.andreidobrescu.emojilike.EmojiLikeTouchDetector;
 import ro.andreidobrescu.emojilike.EmojiLikeView;
@@ -49,10 +48,9 @@ public class MainActivity extends AppCompatActivity implements OnEmojiSelectedLi
                 .addEmoji(new Emoji(R.drawable.haha, "Haha"))
                 .addEmoji(new Emoji(R.drawable.kiss, "Kiss"))
                 .addEmoji(new Emoji(R.drawable.sad, "Sad"))
-                .addEmoji(new Emoji(R.drawable.t, ":P"))
-                .setEmojiViewInAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.in_animation))
-                .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.out_animation))
-                .setBackgroundImage(R.drawable.background_drawable)
+                .addEmoji(new Emoji(R.drawable.p, ":P"))
+                .setEmojiAnimationSpeed(0.2f)
+                .setEmojiCellViewFactory(EmojiCellView.WithImageAndText::new)
                 .setOnEmojiSelectedListener(this)
                 .setup();
     }
@@ -77,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements OnEmojiSelectedLi
         startActivity(i);
     }
 
-    //override theese 2 methods if your activity doesn't extend ActivityWithEmoji
+    //override these 2 methods if your activity doesn't extend ActivityWithEmoji
     @Override
     public boolean dispatchTouchEvent(MotionEvent event)
     {

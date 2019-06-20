@@ -26,7 +26,7 @@ public class RecyclerActivitySample extends ActivityWithEmoji
 
         ButterKnife.bind(this);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerAdapterSample(this));
     }
 }

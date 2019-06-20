@@ -1,9 +1,7 @@
 package ro.andreidobrescu.emojilike;
 
-import android.content.Context;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 /**
@@ -12,30 +10,28 @@ import android.widget.LinearLayout;
  */
 public class ViewWeightAnimation extends Animation
 {
-    ImageView view;
-    float initWeight;
-    float currWeight;
-    float maxWeight;
-    float step;
-    boolean isSelected;
-    Context context;
-    int index;
-    EmojiConfig config;
+    private EmojiCellView view;
+    private float initialWeight;
+    private float currentWeight;
+    private float targetWeight;
+    private float step;
+    private boolean shouldSelect;
+    private int index;
+    private EmojiConfig config;
 
-    public ViewWeightAnimation(Context context, ImageView view, int index, float initWeight, float maxWeight, float step, boolean forSelected, EmojiConfig config)
+    public ViewWeightAnimation(EmojiCellView view, int index, float initialWeight, float targetWeight, float step, boolean shouldSelect, EmojiConfig config)
     {
-        this.context=context;
         this.view = view;
-        this.initWeight = initWeight;
-        currWeight=initWeight;
-        this.maxWeight = maxWeight;
+        this.initialWeight = initialWeight;
+        currentWeight = initialWeight;
+        this.targetWeight = targetWeight;
         this.step = step;
         this.index=index;
-        this.isSelected = forSelected;
+        this.shouldSelect = shouldSelect;
         this.config=config;
     }
 
-    public void doIt  ()
+    public void animate()
     {
         applyTransformation(0f, null);
     }
@@ -43,26 +39,37 @@ public class ViewWeightAnimation extends Animation
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t)
     {
-        currWeight+=step;
-        if (step>0?(currWeight<maxWeight):(currWeight>maxWeight))
+        currentWeight+=step;
+        if (step>0?(currentWeight<targetWeight):(currentWeight>targetWeight))
         {
-            int h=isSelected?config.selectedEmojiHeight
+            int height=shouldSelect?config.selectedEmojiHeight
                     :LinearLayout.LayoutParams.MATCH_PARENT;
-            float weight=currWeight;
-            LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(0, h, weight);
+            float weight=currentWeight;
+            LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(0, height, weight);
 
-            int left=isSelected?config.selectedEmojiMarginLeft:config.unselectedEmojiMarginLeft;
-            int top=isSelected?config.selectedEmojiMarginTop:config.unselectedEmojiMarginTop;
-            int bottom=isSelected?config.selectedEmojiMarginBottom:config.unselectedEmojiMarginBottom;
-            int right=isSelected?config.selectedEmojiMarginRight:config.unselectedEmojiMarginRight;
+            int left=shouldSelect?config.selectedEmojiMarginLeft:config.unselectedEmojiMarginLeft;
+            int top=shouldSelect?config.selectedEmojiMarginTop:config.unselectedEmojiMarginTop;
+            int bottom=shouldSelect?config.selectedEmojiMarginBottom:config.unselectedEmojiMarginBottom;
+            int right=shouldSelect?config.selectedEmojiMarginRight:config.unselectedEmojiMarginRight;
             if (index==0)
                 params.setMargins(config.emojiViewMarginLeft+left, top, right, bottom);
             else if (index==config.emojis.size()-1)
                 params.setMargins(left, top, right+config.emojiViewMarginRight, bottom);
-            else
-                params.setMargins(left, top, right, bottom);
+            else params.setMargins(left, top, right, bottom);
 
             view.setLayoutParams(params);
+
+            if (shouldSelect&&step>0)
+            {
+                float normalizedCurrentWeight=IntervalConverter
+                        .convertNumber(currentWeight)
+                        .fromInterval(0, targetWeight)
+                        .toInterval(initialWeight, targetWeight);
+
+                float animationPercent=normalizedCurrentWeight/targetWeight;
+                view.onWeightAnimated(animationPercent);
+            }
+            else view.onWeightAnimated(0);
         }
         else
         {

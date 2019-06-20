@@ -21,7 +21,7 @@ allprojects {
 		maven { url "https://jitpack.io" }
 		...
 dependencies {
-	compile 'com.github.andob:emojilike-android:beta2'
+	compile 'com.github.andob:emojilike-android:beta3'
 ...
 ```
 
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements IActivityWithEmoj
         .....
     }
     
-    //override theese 2 methods if your activity doesn't extend ActivityWithEmoji
+    //override these 2 methods if your activity doesn't extend ActivityWithEmoji
     @Override
     public boolean dispatchTouchEvent(MotionEvent event)
     {
@@ -116,17 +116,151 @@ EmojiConfig.with(this)
 	.addEmoji(new Emoji(R.drawable.haha, "Haha"))
 	.addEmoji(new Emoji(R.drawable.kiss, "Kiss"))
 	.addEmoji(new Emoji(R.drawable.sad, "Sad"))
-	.addEmoji(new Emoji(R.drawable.t, ":P"))
-	.setEmojiViewInAnimation((AnimationSet)AnimationUtils.loadAnimation(this, R.anim.in_animation))
-	.setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(this, R.anim.out_animation))
-	.setBackgroundImage(R.drawable.background_drawable)
-	.setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
-		@Override
-		public void onEmojiSelected(Emoji emoji) {
-			Toast.makeText(getContext(), "Selected " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
-		}
+	.addEmoji(new Emoji(R.drawable.p, ":P"))
+	.setOnEmojiSelectedListener(emoji ->
+	{
+        Toast.makeText(getContext(), "Selected " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
 	})
 	.setup();
+```
+
+#### 5. [Optional] More configuration methods
+
+``setTouchDownDelay(int touchDownDelay)`` - set the time delay (in milliseconds) between the touch down event and the moment the emoji view is showed (default value = 100)
+
+``setTouchUpDelay(int touchUpDelay)`` - set the time delay (in milliseconds) between the touch up event and the moment the emoji view is hided (default = 500)
+
+``setEmojiAnimationSpeed(float emojiAnimationSpeed)`` - set animation speed (default = 0.2)
+
+``setBackgroundImageResource(int backgroundImageResource)`` - set background image (by default, a white rounded rectangle)
+
+``setEmojiViewOpenedAnimation(Animation emojiViewOpenedAnimation)`` - set the animation when emoji view is opened (by default, a scale in from center - bottom)
+
+ ``setEmojiViewClosedAnimation(Animation emojiViewClosedAnimation)`` - set the animation when emoji view is closed (by default, a scale out to center - bottom)
+ 
+``setEmojiCellViewFactory(IEmojiCellViewFactory factor`` - sets the emoji cell view factory. See below.
+
+```
+Various dimensions:
+setSelectedEmojiHeight(int selectedEmojiHeight = 85dp)
+setSelectedEmojiWeight(int selectedEmojiWeight = 4)
+setEmojiViewMarginLeft(int emojiViewMarginLeft = 15dp)
+setEmojiViewMarginRight(int emojiViewMarginRight = 15dp)
+setSelectedEmojiMarginBottom(int selectedEmojiMarginBottom = 15dp)
+setSelectedEmojiMarginTop(int selectedEmojiMarginTop = 0)
+setSelectedEmojiMarginLeft(int selectedEmojiMarginLeft = 15dp)
+setSelectedEmojiMarginRight(int selectedEmojiMarginRight = 15dp)
+setUnselectedEmojiMarginBottom(int unselectedEmojiMarginBottom = 0)
+setUnselectedEmojiMarginTop(int unselectedEmojiMarginTop = 30dp)
+setUnselectedEmojiMarginLeft(int unselectedEmojiMarginLeft = 15dp)
+setUnselectedEmojiMarginRight(int unselectedEmojiMarginRight = 15dp)
+setUnselectedEmojiWeight(int unselectedEmojiWeight = 1)
+setEmojiImagesContainerHeight(int emojiImagesContainerHeight = 130dp)
+setBackgroundViewHeight(int backgroundViewHeight = 50dp)
+setBackgroundViewMarginBottom(int backgroundViewMarginBottom = 10dp)
+```
+
+#### 6. [Optional] Configure emoji cell view factory
+
+You can customize the way emojis are rendered by specifying a "emoji cell view factory" (similar to a RecyclerView adapter) in the configuration:
+
+The default factory that provides a cell view that renders only images:
+
+```java
+EmojiConfig.with(this)
+    //...other configuration method calls
+    .setEmojiCellViewFactory(EmojiCellView.WithImage::new)
+    .setup();
+```
+
+Another factory that provides a cell view that renders images with text:
+
+``java
+EmojiConfig.with(this)
+    //...other configuration method calls
+    .setEmojiCellViewFactory(EmojiCellView.WithImageAndText::new)
+    .setup();
+``
+
+You can also create your own emoji cell view:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/default_emoji_description_label_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/default_emoji_description_label_bottom_margin"
+        tools:text="Test"
+        android:gravity="center_vertical"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:background="#000000"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:lines="1"
+        android:id="@+id/descriptionLabel"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"/>
+
+</LinearLayout>
+```
+
+```java
+public class MyEmojiCellView extends EmojiCellView
+{
+    public MyEmojiCellView(@NonNull Context context)
+    {
+        super(context);
+    }
+
+    @Override
+    public int getLayoutId()
+    {
+        return R.layout.my_emoji_cell_view;
+    }
+
+    @Override
+    public void setEmoji(Emoji emoji)
+    {
+        //bind the model to the views
+        ImageView imageView=findViewById(R.id.imageView);
+        TextView descriptionLabel=findViewById(R.id.descriptionLabel);
+
+        imageView.setImageResource(emoji.getDrawable());
+        descriptionLabel.setText(emoji.getDescription());
+    }
+
+    @Override
+    public void onWeightAnimated(float animationPercent)
+    {
+        //called when a weight is set upon an emoji cell view - animate your child views accordingly
+        TextView descriptionLabel=findViewById(R.id.descriptionLabel);
+        descriptionLabel.setAlpha(animationPercent); //make it more opaque or more transparent
+
+        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                (int)(animationPercent*getResources().getDimensionPixelSize(R.dimen.default_emoji_description_label_height)));
+        params.bottomMargin=getResources().getDimensionPixelSize(R.dimen.default_emoji_description_label_bottom_margin);
+        params.gravity=Gravity.CENTER_HORIZONTAL;
+        descriptionLabel.setLayoutParams(params); //scale the textview
+    }
+}
+```
+
+```java
+EmojiConfig.with(this)
+    //...other configuration method calls
+    .setEmojiCellViewFactory(MyEmojiCellView::new)
+    .setup();
 ```
 
 For more info look at the sample project.
@@ -134,7 +268,7 @@ For more info look at the sample project.
 ### License
 
 ```java
-Copyright 2016 Andrei Dobrescu  
+Copyright 2016 - 2019 Andrei Dobrescu  
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 

@@ -7,8 +7,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,7 +15,6 @@ import butterknife.ButterKnife;
 import ro.andreidobrescu.emojilike.Emoji;
 import ro.andreidobrescu.emojilike.EmojiConfig;
 import ro.andreidobrescu.emojilike.EmojiLikeView;
-import ro.andreidobrescu.emojilike.OnEmojiSelectedListener;
 import ro.andreidobrescu.sample.R;
 
 /**
@@ -51,16 +48,11 @@ public class FragmentSample extends Fragment
                 .addEmoji(new Emoji(R.drawable.haha, "Haha"))
                 .addEmoji(new Emoji(R.drawable.kiss, "Kiss"))
                 .addEmoji(new Emoji(R.drawable.sad, "Sad"))
-                .addEmoji(new Emoji(R.drawable.t, ":P"))
-                .setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
-                    @Override
-                    public void onEmojiSelected(Emoji emoji) {
-                        Toast.makeText(getContext(), "Selected center " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
-                    }
+                .addEmoji(new Emoji(R.drawable.p, ":P"))
+                .setOnEmojiSelectedListener(emoji ->
+                {
+                    Toast.makeText(getContext(), "Selected center " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
                 })
-                .setEmojiViewInAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.in_animation))
-                .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.out_animation))
-                .setBackgroundImage(R.drawable.background_drawable)
                 .setup();
 
         EmojiConfig.with(getContext())
@@ -71,16 +63,11 @@ public class FragmentSample extends Fragment
                 .addEmoji(new Emoji(R.drawable.sad, "Sad"))
                 .addEmoji(new Emoji(R.drawable.sad, "Sad"))
                 .addEmoji(new Emoji(R.drawable.sad, "Sad"))
-                .addEmoji(new Emoji(R.drawable.t, ":P"))
-                .setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
-                    @Override
-                    public void onEmojiSelected(Emoji emoji) {
-                        Toast.makeText(getContext(), "Selected bottom " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
-                    }
+                .addEmoji(new Emoji(R.drawable.p, ":P"))
+                .setOnEmojiSelectedListener(emoji ->
+                {
+                    Toast.makeText(getContext(), "Selected bottom " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
                 })
-                .setEmojiViewInAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.in_animation))
-                .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.out_animation))
-                .setBackgroundImage(R.drawable.background_drawable)
                 .setup();
 
         return view;

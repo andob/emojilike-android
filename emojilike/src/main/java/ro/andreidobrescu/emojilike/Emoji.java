@@ -6,11 +6,11 @@ package ro.andreidobrescu.emojilike;
  */
 public class Emoji
 {
-    int drawable;
+    private int drawable;
 
-    String description;
+    private String description;
 
-    Object tag;
+    private Object tag;
 
     public Emoji(int drawable, String description) {
         this.drawable = drawable;

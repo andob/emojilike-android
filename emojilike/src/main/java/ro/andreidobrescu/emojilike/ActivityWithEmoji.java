@@ -10,7 +10,7 @@ import android.view.MotionEvent;
  */
 public class ActivityWithEmoji extends AppCompatActivity implements IActivityWithEmoji
 {
-    EmojiLikeTouchDetector emojiLikeTouchDetector;
+    private EmojiLikeTouchDetector emojiLikeTouchDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

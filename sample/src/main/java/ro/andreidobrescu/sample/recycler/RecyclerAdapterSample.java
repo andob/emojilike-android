@@ -5,8 +5,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +12,6 @@ import android.widget.Toast;
 import ro.andreidobrescu.emojilike.Emoji;
 import ro.andreidobrescu.emojilike.EmojiConfig;
 import ro.andreidobrescu.emojilike.EmojiLikeView;
-import ro.andreidobrescu.emojilike.OnEmojiSelectedListener;
 import ro.andreidobrescu.sample.R;
 
 /**
@@ -59,16 +56,11 @@ public class RecyclerAdapterSample extends RecyclerView.Adapter <RecyclerAdapter
                 .addEmoji(new Emoji(R.drawable.haha, "Haha", position))
                 .addEmoji(new Emoji(R.drawable.kiss, "Kiss", position))
                 .addEmoji(new Emoji(R.drawable.sad, "Sad", position))
-                .addEmoji(new Emoji(R.drawable.t, ":P", position))
-                .setOnEmojiSelectedListener(new OnEmojiSelectedListener() {
-                    @Override
-                    public void onEmojiSelected(Emoji emoji) {
-                        Toast.makeText(getContext(), emoji.getDescription()+" "+emoji.getTag().toString(), Toast.LENGTH_SHORT).show();
-                    }
+                .addEmoji(new Emoji(R.drawable.p, ":P", position))
+                .setOnEmojiSelectedListener(emoji ->
+                {
+                    Toast.makeText(getContext(), emoji.getDescription()+" "+emoji.getTag().toString(), Toast.LENGTH_SHORT).show();
                 })
-                .setEmojiViewInAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.in_animation))
-                .setEmojiViewOutAnimation((AnimationSet) AnimationUtils.loadAnimation(getContext(), R.anim.out_animation))
-                .setBackgroundImage(R.drawable.background_drawable)
                 .setup();
     }
 

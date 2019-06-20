@@ -10,23 +10,23 @@ import android.view.View;
  */
 public class EmojiTriggerManager
 {
-    View triggerView;
+    private View triggerView;
 
-    EmojiLikeView emojiView;
+    private EmojiLikeView emojiView;
 
-    int touchDownDelay;
+    private int touchDownDelay;
 
-    int touchUpDelay;
+    private int touchUpDelay;
 
-    boolean triggerViewTouched=false;
+    private boolean triggerViewTouched=false;
 
-    boolean shouldSendEventsToEmojiView=false;
+    private boolean shouldSendEventsToEmojiView=false;
 
-    MotionEvent downEvent;
+    private MotionEvent downEvent;
 
-    boolean shouldWaitForClosing=false;
+    private boolean shouldWaitForClosing=false;
 
-    MotionEvent upEvent;
+    private MotionEvent upEvent;
 
     public void configure (EmojiConfig config)
     {
@@ -69,16 +69,14 @@ public class EmojiTriggerManager
                 shouldSendEventsToEmojiView=false;
                 downEvent=event;
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (triggerViewTouched)
-                        {
-                            //if the user has touched and the touch is still down
-                            shouldSendEventsToEmojiView=true;
-                            emojiView.onTouchDown(downEvent.getRawX(), downEvent.getRawY());
-                            emojiView.show();
-                        }
+                new Handler().postDelayed(() ->
+                {
+                    if (triggerViewTouched)
+                    {
+                        //if the user has touched and the touch is still down
+                        shouldSendEventsToEmojiView=true;
+                        emojiView.onTouchDown(downEvent.getRawX(), downEvent.getRawY());
+                        emojiView.show();
                     }
                 }, touchDownDelay);
 
@@ -103,13 +101,11 @@ public class EmojiTriggerManager
             shouldWaitForClosing=true;
             upEvent=event;
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    shouldWaitForClosing=false;
-                    emojiView.onTouchUp(upEvent.getRawX(), upEvent.getRawY());
-                    emojiView.hide();
-                }
+            new Handler().postDelayed(() ->
+            {
+                shouldWaitForClosing=false;
+                emojiView.onTouchUp(upEvent.getRawX(), upEvent.getRawY());
+                emojiView.hide();
             }, touchUpDelay);
 
             return false;

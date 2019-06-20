@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class EmojiLikeTouchDetector
 {
-    List<EmojiTriggerManager> emojiTriggerManagers;
+    private List<EmojiTriggerManager> emojiTriggerManagers;
 
     private List<EmojiTriggerManager> getEmojiTriggerManagers()
     {

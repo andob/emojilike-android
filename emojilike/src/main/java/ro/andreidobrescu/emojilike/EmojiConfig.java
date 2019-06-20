@@ -5,9 +5,12 @@ import android.content.res.Resources;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import ro.andreidobrescu.emojilikelib.R;
 
 /**
  * Created by using on 7/4/2016.
@@ -53,9 +56,9 @@ public class EmojiConfig
 
     int unselectedEmojiWeight;
 
-    Animation emojiViewInAnimation;
+    Animation emojiViewOpenedAnimation;
 
-    Animation emojiViewOutAnimation;
+    Animation emojiViewClosedAnimation;
 
     List <Emoji> emojis;
 
@@ -63,18 +66,20 @@ public class EmojiConfig
 
     EmojiLikeView emojiView;
 
-    int backgroundImage;
+    int backgroundImageResource;
 
     int backgroundViewMarginBottom;
 
     float emojiAnimationSpeed;
+
+    IEmojiCellViewFactory cellViewFactory;
 
     private EmojiConfig(IActivityWithEmoji target)
     {
         this.target = target;
         touchDownDelay=100;
         touchUpDelay=500;
-        backgroundImage =0;
+        backgroundImageResource =0;
         selectedEmojiHeight=dpToPx (85);
         selectedEmojiWeight=4;
         unselectedEmojiWeight=1;
@@ -88,10 +93,14 @@ public class EmojiConfig
         unselectedEmojiMarginTop=dpToPx(30);
         unselectedEmojiMarginLeft=dpToPx(15);
         unselectedEmojiMarginRight=dpToPx(15);
-        emojiImagesContainerHeight=dpToPx(100);
+        emojiImagesContainerHeight=dpToPx(130);
         backgroundViewHeight=dpToPx(50);
         backgroundViewMarginBottom=dpToPx(10);
-        emojiAnimationSpeed=0.4f;
+        emojiAnimationSpeed=0.2f;
+        emojiViewOpenedAnimation =AnimationUtils.loadAnimation(getContext(), R.anim.emoji_default_in_animation);
+        emojiViewClosedAnimation =AnimationUtils.loadAnimation(getContext(), R.anim.emoji_default_out_animation);
+        backgroundImageResource=R.drawable.emoji_default_background_drawable;
+        cellViewFactory=EmojiCellView.WithImage::new;
     }
 
     private Context getContext ()
@@ -242,8 +251,8 @@ public class EmojiConfig
         return this;
     }
 
-    public EmojiConfig setBackgroundImage(int backgroundImage) {
-        this.backgroundImage = backgroundImage;
+    public EmojiConfig setBackgroundImageResource(int backgroundImageResource) {
+        this.backgroundImageResource = backgroundImageResource;
         return this;
     }
 
@@ -252,13 +261,19 @@ public class EmojiConfig
         return this;
     }
 
-    public EmojiConfig setEmojiViewInAnimation(Animation emojiViewInAnimation) {
-        this.emojiViewInAnimation = emojiViewInAnimation;
+    public EmojiConfig setEmojiViewOpenedAnimation(Animation emojiViewOpenedAnimation) {
+        this.emojiViewOpenedAnimation = emojiViewOpenedAnimation;
         return this;
     }
 
-    public EmojiConfig setEmojiViewOutAnimation(Animation emojiViewOutAnimation) {
-        this.emojiViewOutAnimation = emojiViewOutAnimation;
+    public EmojiConfig setEmojiViewClosedAnimation(Animation emojiViewClosedAnimation) {
+        this.emojiViewClosedAnimation = emojiViewClosedAnimation;
+        return this;
+    }
+
+    public EmojiConfig setEmojiCellViewFactory(IEmojiCellViewFactory factory)
+    {
+        this.cellViewFactory=factory;
         return this;
     }
 
