@@ -117,10 +117,7 @@ EmojiConfig.with(this)
 	.addEmoji(new Emoji(R.drawable.kiss, "Kiss"))
 	.addEmoji(new Emoji(R.drawable.sad, "Sad"))
 	.addEmoji(new Emoji(R.drawable.p, ":P"))
-	.setOnEmojiSelectedListener(emoji ->
-	{
-        Toast.makeText(getContext(), "Selected " + emoji.getDescription(), Toast.LENGTH_SHORT).show();
-	})
+	.setOnEmojiSelectedListener(emoji -> Toast.makeText(getContext(), "Selected " + emoji.getDescription(), Toast.LENGTH_SHORT).show())
 	.setup();
 ```
 
@@ -175,12 +172,12 @@ EmojiConfig.with(this)
 
 Another factory that provides a cell view that renders images with text:
 
-``java
+```java
 EmojiConfig.with(this)
     //...other configuration method calls
     .setEmojiCellViewFactory(EmojiCellView.WithImageAndText::new)
     .setup();
-``
+```
 
 You can also create your own emoji cell view:
 

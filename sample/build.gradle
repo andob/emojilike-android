@@ -28,5 +28,5 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
-    implementation project(':emojilike')
+    implementation 'com.github.andob:emojilike-android:beta3'
 }
