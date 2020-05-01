@@ -2,10 +2,11 @@ buildscript {
     repositories {
         jcenter()
         google()
+        maven { url 'http://www.andob.info' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.1'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'digital.wup:android-maven-publish:3.6.2'
     }
 }
 
@@ -13,7 +14,7 @@ allprojects {
     repositories {
         jcenter()
         google()
-        maven { url 'https://jitpack.io' }
+        maven { url 'http://www.andob.info' }
     }
 }
 

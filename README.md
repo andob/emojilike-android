@@ -18,10 +18,10 @@ Just like Facebook's app:
 ```gradle
 allprojects {
 	repositories {
-		maven { url "https://jitpack.io" }
+		maven { url "http://www.andob.info" }
 		...
 dependencies {
-	compile 'com.github.andob:emojilike-android:beta3'
+	compile 'ro.andob.emojilike-android:emojilike-android:beta4'
 ...
 ```
 
