@@ -2,7 +2,6 @@ buildscript {
     repositories {
         jcenter()
         google()
-        maven { url 'http://www.andob.info' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.3'
@@ -14,7 +13,7 @@ allprojects {
     repositories {
         jcenter()
         google()
-        maven { url 'http://www.andob.info' }
+        maven { url 'http://maven.andob.info/repository/open_source/' }
     }
 }
 
