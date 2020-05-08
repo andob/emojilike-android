@@ -18,7 +18,7 @@ Just like Facebook's app:
 ```gradle
 allprojects {
 	repositories {
-		maven { url "http://maven.andob.info/reporitory/open_source" }
+		maven { url "http://maven.andob.info/repository/open_source" }
 		...
 dependencies {
 	implementation 'ro.andob.emojilike-android:emojilike-android:beta4'
