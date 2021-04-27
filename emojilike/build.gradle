@@ -51,7 +51,7 @@ artifacts {
 publishing {
     publications {
         repositories.maven {
-            url 'http://maven.andob.info/repository/open_source/'
+            url 'https://maven.andob.info/repository/open_source/'
             credentials {
                 username "$System.env.MAVEN_PUBLISH_USERNAME"
                 password "$System.env.MAVEN_PUBLISH_PASSWORD"
