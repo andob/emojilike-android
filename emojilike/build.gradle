@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
-apply plugin: 'digital.wup.android-maven-publish'
+apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 3
         versionName "1.0.2"
     }
@@ -22,48 +22,26 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
 }
 
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    failOnError  false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
-publishing {
-    publications {
-        repositories.maven {
-            url 'https://maven.andob.info/repository/open_source/'
-            credentials {
-                username "$System.env.MAVEN_PUBLISH_USERNAME"
-                password "$System.env.MAVEN_PUBLISH_PASSWORD"
+project.afterEvaluate {
+    publishing {
+        publications {
+            repositories.maven {
+                url 'https://maven.andob.info/repository/open_source/'
+                credentials {
+                    username "$System.env.MAVEN_PUBLISH_USERNAME"
+                    password "$System.env.MAVEN_PUBLISH_PASSWORD"
+                }
             }
-        }
 
-        android.libraryVariants.all { variant ->
-            "maven${variant.name.capitalize()}Aar"(MavenPublication) {
-                from components.findByName("android${variant.name.capitalize()}")
+            maven(MavenPublication) {
                 groupId 'ro.andob.emojilike-android'
                 artifactId 'emojilike-android'
                 version 'beta4'
+                artifact(bundleReleaseAar)
             }
         }
     }
